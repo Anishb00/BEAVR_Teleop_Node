@@ -19,6 +19,34 @@ __pycache__/
 .idea/
 *.swp
 *~
+.vs/
+.idea/
+*.csproj
+*.sln
+*.user
+*.userprefs
+*.vsconfig
+*.DotSettings.user
 
 # ===== OS =====
 .DS_Store
+Thumbs.db
+
+# ===== Unity =====
+Library/
+Temp/
+Obj/
+Logs/
+UserSettings/
+Build/
+Builds/
+MemoryCaptures/
+
+# =====  Unity caches / VCS =====
+.ytmp/
+.plastic/
+.utmp/
+
+
+
+
