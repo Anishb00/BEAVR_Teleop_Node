@@ -146,9 +146,6 @@ Launch the Unity app on your Quest. Hand tracking will automatically connect.
 ## Notes for Use
 
 Ensure your hand starts in a relaxed, open position. From this initial pose, manipulate your hand and observe the Shadow Robot Hand following the motion.
-
-**Note:** Teleoperation currently supports the right hand only, as the system is not yet configured for bimanual simulation.
-
 ---
 
 ## Acknowledgments
