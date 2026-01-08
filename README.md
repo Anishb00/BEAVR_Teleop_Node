@@ -81,6 +81,77 @@ Each frame is published as a single JSON record representing the current wrist p
     "gripper": 0.0999
   }
 }
+```
+
+---
+
+## ROS Teleoperation Setup
+
+### Prerequisites
+
+- **Meta Quest 3S** (or Quest 2/3/Pro) with hand tracking enabled
+- **Docker** with NVIDIA GPU support ([NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html))
+- **PC and Quest on the same network**
+
+### 1. Pull the Docker Image
+
+```bash
+docker pull ghcr.io/anishb00/shadow-vr-teleop:latest
+```
+
+### 2. Start the Container with GPU Access
+
+```bash
+docker run -it \
+  --gpus all \
+  --net=host \
+  --privileged \
+  -e DISPLAY=$DISPLAY \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  ghcr.io/anishb00/shadow-vr-teleop:latest
+```
+
+### 3. Start the Shadow Hand Simulation
+
+In the container:
+
+```bash
+roslaunch sr_robot_launch srhand.launch sim:=true
+```
+
+Wait for Gazebo to fully load.
+
+### 4. Start the Teleoperation Nodes
+
+In a **new terminal**, attach to the container:
+
+```bash
+docker exec -it <container_id> bash
+```
+
+Launch the teleoperation:
+
+```bash
+roslaunch shadow_teleop teleop.launch vr_ip:=<YOUR_QUEST_IP>
+```
+
+Replace `<YOUR_QUEST_IP>` with your Quest's IP address (Settings → Wi-Fi → your network).
+
+### 5. Start the Unity App on Quest
+
+Launch the Unity app on your Quest. Hand tracking will automatically connect.
 
 
 
+## Notes for Use
+
+Ensure your hand starts in a relaxed, open position. From this initial pose, manipulate your hand and observe the Shadow Robot Hand following the motion.
+
+**Note:** Teleoperation currently supports the right hand only, as the system is not yet configured for bimanual simulation.
+
+---
+
+## Acknowledgments
+
+- [Shadow Robot Company](https://www.shadowrobot.com/) for the Shadow Dexterous Hand
+- [BEAVR Research Paper](https://arclab-mit.github.io/beavr-landing/) - My project is based on the teleoperation node described in this paper
