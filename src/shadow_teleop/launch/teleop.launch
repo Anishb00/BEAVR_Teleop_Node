@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<launch>
+    <!--
+    Shadow Hand VR Teleoperation Launch File
+
+    Launches all nodes required for VR teleoperation of the Shadow Hand:
+    1. vr_data_publisher - Receives hand tracking data from Quest headset via ZMQ
+    2. shadow_fingertip_ik - Solves IK to convert fingertip positions to joint angles
+    3. shadow_hand_controller - Sends joint commands to the Shadow Hand
+
+    Usage:
+        roslaunch shadow_teleop teleop.launch
+        roslaunch shadow_teleop teleop.launch vr_ip:=192.168.1.100
+        roslaunch shadow_teleop teleop.launch transform_mode:=calibrated_keepY
+    -->
+
+    <!-- ==================== Arguments ==================== -->
+
+    <!-- VR Headset IP (Quest) -->
+    <arg name="vr_ip"/>
+
+    <!-- IK Transform mode: "calibrated" (zero Y) or "calibrated_keepY" (flip Y) -->
+    <arg name="transform_mode" default="calibrated"/>
+
+    <!-- Per-finger scale factors (Shadow/Unity finger length ratios) -->
+    <arg name="scale_thumb"  default="1.20"/>
+    <arg name="scale_index"  default="1.22"/>
+    <arg name="scale_middle" default="1.17"/>
+    <arg name="scale_ring"   default="1.22"/>
+    <arg name="scale_little" default="1.35"/>
+
+
+    <!-- ==================== Nodes ==================== -->
+
+    <!-- VR Data Publisher: Receives Quest hand tracking via ZMQ -->
+    <node pkg="shadow_teleop" type="vr_data_publisher.py" name="vr_data_publisher" output="screen">
+        <param name="vr_headset_ip" value="$(arg vr_ip)"/>
+    </node>
+
+    <!-- Fingertip IK Solver: Converts fingertip positions to joint angles -->
+    <node pkg="shadow_teleop" type="shadow_fingertip_ik.py" name="shadow_fingertip_ik" output="screen">
+        <param name="transform_mode" value="$(arg transform_mode)"/>
+        <param name="scale_thumb"    value="$(arg scale_thumb)"/>
+        <param name="scale_index"    value="$(arg scale_index)"/>
+        <param name="scale_middle"   value="$(arg scale_middle)"/>
+        <param name="scale_ring"     value="$(arg scale_ring)"/>
+        <param name="scale_little"   value="$(arg scale_little)"/>
+    </node>
+
+    <!-- Shadow Hand Controller: Sends joint commands to robot -->
+    <node pkg="shadow_teleop" type="shadow_hand_controller.py" name="shadow_hand_controller" output="screen">
+    </node>
+
+</launch>

@@ -47,6 +47,5 @@ MemoryCaptures/
 .plastic/
 .utmp/
 
-
-
-
+# ===== APP =====
+logs/
