@@ -2,27 +2,13 @@
 This Project will process wrist frame data provided by Meta Quest 3S to teleoperate humanoid robotic hands
 
 
-## Unity Client Overview
+## Unity Client Location
 
-This repository contains a Unity-based VR client for wrist-relative hand tracking and teleoperation.
-
-### Unity Client Location
-
-The Unity project is located at:
-
-
-```
-BEAVR_Teleop_node/
-└── unity-client/
-    └── WristRelativeHandTracking/
-```
-
-
-Open the project by selecting the `WristRelativeHandTracking/` directory in Unity Hub.
+Open the Unity project by selecting the `WristRelativeHandTracking/` directory in Unity Hub.
 
 ---
 
-## Project Structure
+## Unity Project Structure
 
 All project-specific Unity content (scripts, scenes, prefabs, and assets) is organized under a single root folder:
 
@@ -30,23 +16,11 @@ All project-specific Unity content (scripts, scenes, prefabs, and assets) is org
 BEAVR_Teleop_node/unity-client/WristRelativeHandTracking/Assets/_VRWristFrame/
 ```
 
-## VR Wrist-Relative Hand Tracking Output
-
-The Unity VR client publishes wrist-relative hand tracking data from the headset over the network for downstream teleoperation.
-
-### Network Interface
-
-- **Transport:** TCP
-- **Host:** VR headset
-- **Port:** `5555`
-- **Direction:** Unity VR client → external teleoperation system (e.g., ROS)
-
----
 
 ## Hand Support Status
 
-- ✅ **Currently published:** **Right hand only**
-- ❌ **Left hand:** not yet supported
+- **Currently published:** **Right hand only**
+- **Left hand:** not yet supported
 
 Although the data schema supports both hands, teleoperation currently only works with the right hand, so only right-hand data is actively published and consumed downstream.
 
@@ -87,12 +61,6 @@ Each frame is published as a single JSON record representing the current wrist p
 
 ## ROS Teleoperation Setup
 
-### Prerequisites
-
-- **Meta Quest 3S** (or Quest 2/3/Pro) with hand tracking enabled
-- **Docker** with NVIDIA GPU support ([NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html))
-- **PC and Quest on the same network**
-
 ### 1. Pull the Docker Image
 
 ```bash
@@ -123,7 +91,7 @@ Wait for Gazebo to fully load.
 
 ### 4. Start the Teleoperation Nodes
 
-In a **new terminal**, attach to the container:
+In a new terminal, attach to the container:
 
 ```bash
 docker exec -it <container_id> bash
@@ -135,13 +103,9 @@ Launch the teleoperation:
 roslaunch shadow_teleop teleop.launch vr_ip:=<YOUR_QUEST_IP>
 ```
 
-Replace `<YOUR_QUEST_IP>` with your Quest's IP address (Settings → Wi-Fi → your network).
-
 ### 5. Start the Unity App on Quest
 
 Launch the Unity app on your Quest. Hand tracking will automatically connect.
-
-
 
 ## Notes for Use
 
