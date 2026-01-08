@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 This ROS Node is responsible for receiving VR wrist-relative hand tracking data
 over ZMQ and publishing it to a ROS topic which will be picked up by IK solver.
@@ -7,7 +8,7 @@ the received data as raw JSON strings over the following ROS topic:
 
     - /hand_data
 """
-#!/usr/bin/env python3
+
 import zmq
 import sys
 import os
