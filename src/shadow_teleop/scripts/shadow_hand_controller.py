@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-#!/usr/bin/python3
->>>>>>> 8a13036 (Changed name from ShadowHandController.py to shadow_hand_controller.py to follow naming convention)
 """
 This ROS Node is responsible for receiving the target joint angle values from
 the IK solver node. It then commands the Shadow Robot hand to move by publishing
@@ -11,11 +7,7 @@ those joint angles over the following topics:
     - /rh_wr_trajectory_controller/command (Wrist Joints)
 """
 
-<<<<<<< HEAD
 #!/usr/bin/python3
-=======
-
->>>>>>> 8a13036 (Changed name from ShadowHandController.py to shadow_hand_controller.py to follow naming convention)
 
 import rospy
 from sensor_msgs.msg import JointState
