@@ -11,9 +11,14 @@ def main():
 
     pub = rospy.Publisher('/hand_data', String, queue_size=10)
 
-    address = rospy.get_param('~zmq_address', "tcp://192.168.68.70:5555")
-    if len(sys.argv) > 1:
-        address = sys.argv[1]
+    # Get VR headset IP from ROS parameter (required - no default)
+    if not rospy.has_param('~vr_headset_ip'):
+        rospy.logerr("Required parameter 'vr_headset_ip' not provided!")
+        rospy.logerr("Usage: rosrun your_package hand_data_zmq_to_ros.py _vr_headset_ip:=192.168.1.100")
+        sys.exit(1)
+
+    vr_headset_ip = rospy.get_param('~vr_headset_ip')
+    address = f"tcp://{vr_headset_ip}:5555"
 
     rospy.loginfo(f"Connecting to ZMQ: {address}")
 
