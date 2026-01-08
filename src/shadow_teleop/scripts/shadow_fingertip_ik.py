@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """
 Shadow Hand Fingertip IK Solver with Unity-to-ROS Coordinate Transformation.
 
