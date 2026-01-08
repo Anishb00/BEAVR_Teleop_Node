@@ -38,7 +38,10 @@ from std_msgs.msg import String
 
 
 
-URDF_PATH = "/tmp/shadowhand.urdf"
+from pathlib import Path
+SCRIPT_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = SCRIPT_DIR.parent.parent.parent  # scripts -> shadow_teleop -> src -> BEAVR_Teleop_Node
+URDF_PATH = str(PROJECT_ROOT / "shadowhand.urdf")
 
 FINGERTIP_FRAMES = {
     "thumb":  "rh_thtip",
